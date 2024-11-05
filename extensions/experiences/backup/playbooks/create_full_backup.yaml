@@ -8,9 +8,6 @@
     - name: Create time stamp for play
       ansible.builtin.set_fact:
         datetime: "{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M') }}"
-      # delegate_to: localhost
-      # delegate_facts: true
-      # run_once: true
 
     - name: Perform pre-run checks
       ansible.builtin.include_tasks:

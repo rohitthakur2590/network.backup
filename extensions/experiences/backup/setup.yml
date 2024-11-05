@@ -8,7 +8,7 @@ controller_labels:
 # Projects
 #
 controller_projects:
-  - name: Network Backup Automation Experience Project
+  - name: Network Experience Backup Project
     organization: Default
     scm_branch: main
     scm_clean: 'no'
@@ -25,7 +25,7 @@ controller_templates:
   - name: Operations / Create Full Network Backup Job
     inventory: Network Validated Inventory
     project: Network Backup Automation Experience Project
-    playbook: extensions/experiences/backup/playbooks/full_backup_remote.yaml
+    playbook: extensions/experiences/backup/playbooks/create_full_backup.yaml
     job_type: "run"
     organization: "Default"
     labels: operations
