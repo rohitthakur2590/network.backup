@@ -8,7 +8,7 @@ controller_labels:
 # Projects
 #
 controller_projects:
-  - name: Network Experience Backup Project
+  - name: Network Experience Backup Project-01
     organization: Default
     scm_branch: main
     scm_clean: 'no'
@@ -22,7 +22,7 @@ controller_projects:
 # Job Templates
 #
 controller_templates:
-  - name: Operations / Create Full Network Backup Job
+  - name: Operations / Create Full Network Backup Job-01
     inventory: Network Validated Inventory
     project: Network Backup Automation Experience Project
     playbook: extensions/experiences/backup/playbooks/create_full_backup.yaml
@@ -33,7 +33,7 @@ controller_templates:
     survey_enabled: true
     survey_spec: "{{ lookup('template', '{{ playbook_dir }}/template_surveys/backup.j2') }}"
     execution_environment: ee_network.backup_backup
-  - name:  Operations / Create Differential Network Backup Job
+  - name:  Operations / Create Differential Network Backup Job-02
     inventory: Network Validated Inventory
     project: Network Backup Automation Experience Project
     playbook: extensions/experiences/backup/playbooks/diff_backup_remote.yaml
