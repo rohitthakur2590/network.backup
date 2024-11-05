@@ -31,7 +31,7 @@ controller_templates:
     labels: operations
     credentials: cml-instance
     survey_enabled: true
-    survey_spec: "{{ lookup('template', '{{ playbook_dir }}/templates/backup.j2') }}"
+    survey_spec: "{{ lookup('template', '{{ playbook_dir }}/template_surveys/backup.j2') }}"
     execution_environment: ee_network.backup_backup
   - name:  Operations / Create Differential Network Backup Job
     inventory: Network Validated Inventory
