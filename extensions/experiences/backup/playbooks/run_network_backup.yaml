@@ -9,6 +9,10 @@
       ansible.builtin.set_fact:
         datetime: "{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M') }}"
 
+    - name: Set SCM Storage URL
+      ansible.builtin.set_fact:
+        GH_REPO: https://github.com/rohitthakur2590/network_automation_backups
+
     - name: Perform pre-run checks
       ansible.builtin.include_tasks:
         file: ./pre_remote_validation.yaml
