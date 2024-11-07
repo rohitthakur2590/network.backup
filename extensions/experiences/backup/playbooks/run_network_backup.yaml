@@ -16,7 +16,7 @@
         data_store:
           scm:
             origin:
-              URL: "https://github.com/rohitthakur2590/network_automation_backups"
+              url: "https://github.com/rohitthakur2590/network_automation_backups"
               token: "{{ GH_TOKEN }}"
               user:
                 name: rohitthakur2590
