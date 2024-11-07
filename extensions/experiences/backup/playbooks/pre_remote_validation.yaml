@@ -14,4 +14,4 @@
   rescue:
     - name: Display error message
       ansible.builtin.fail:
-        msg: "One or more pre-run checks failed! Backup could not be initiated.
+        msg: "One or more pre-run checks failed! Backup could not be initiated."
