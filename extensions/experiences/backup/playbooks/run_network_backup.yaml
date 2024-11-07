@@ -2,20 +2,10 @@
 - name: Create Network Backup Play
   hosts: rtr1
   gather_facts: false
-  # vars:
-  #   GH_REPO: "https://github.com/rohitthakur2590/network_automation_backups"
   tasks:
-    - name: Create time stamp for play
+    - name: Create time stamp for backup
       ansible.builtin.set_fact:
         datetime: "{{ lookup('pipe', 'date +%Y-%m-%d-%H-%M') }}"
-
-    - name: Set SCM Storage URL
-      ansible.builtin.set_fact:
-        GH_REPO: https://github.com/rohitthakur2590/network_automation_backups
-
-    - name: Perform pre-run checks
-      ansible.builtin.include_tasks:
-        file: ./pre_remote_validation.yaml
 
     - name: Create Network Backup and Push to SCM
       ansible.builtin.include_role:
@@ -26,7 +16,7 @@
         data_store:
           scm:
             origin:
-              url: "{{ GH_REPO }}"
+              URL: "https://github.com/rohitthakur2590/network_automation_backups"
               token: "{{ GH_TOKEN }}"
               user:
                 name: rohitthakur2590
