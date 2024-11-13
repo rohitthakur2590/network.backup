@@ -31,4 +31,5 @@ controller_templates:
     labels: network
     credentials: cml-instance
     survey_enabled: true
-    survey_spec: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.j2') }}"
+    # survey_spec: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.j2') }}"
+    survey_spec: "{{ lookup('template', 'extensions/experiences/backup/playbooks/template_surveys/backup.j2') }}"
