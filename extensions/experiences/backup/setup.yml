@@ -12,7 +12,7 @@ controller_labels:
 # Projects
 #
 controller_projects:
-  - name: Network Operations / Backup & Restore Experience Project
+  - name: Network Operations / Backup & Restore Project
     organization: "{{ organization | default('Default') }}"
     scm_branch: main
     scm_clean: 'no'
