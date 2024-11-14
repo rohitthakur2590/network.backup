@@ -8,7 +8,7 @@ controller_labels:
 # Projects
 #
 controller_projects:
-  - name: Network Operations - Backup Project
+  - name: Network Operations / Backup &  Restore Project
     organization: Default
     scm_branch: main
     scm_clean: 'no'
@@ -34,4 +34,4 @@ controller_templates:
       - run_network_restore 
     credentials: cml-instance
     survey_enabled: true
-    survey_spec: "{{ lookup('template', '{{ playbook_dir }}/template_surveys/restore.j2') }}"
+    survey_spec: "{{ lookup('template', '{{ playbook_dir }}/template_surveys/restore.yaml') }}"
