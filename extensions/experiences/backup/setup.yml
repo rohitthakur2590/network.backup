@@ -35,8 +35,3 @@ controller_templates:
     credentials: cml-instance
     survey_enabled: true
     survey_spec: "{{ lookup('file', tmp_dir.path + '/network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.yaml') | from_yaml }}"
-    # survey_spec: "{{ lookup('template', '{{ tmp_dir.path}}/network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.yaml' | regex_replace('\\n', '') ) }}"
-    # survey_spec: "{{ lookup('template', '{{ playbook_dir }}/template_surveys/backup.yaml') }}"
-    # survey: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.yaml') }}"
-
-    
