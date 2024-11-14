@@ -16,7 +16,7 @@ controller_projects:
     scm_type: git
     scm_update_on_launch: 'no'
     scm_credential: "rothakurgithubPAT"
-    scm_url: https://github.com/rohitthakur2590/network.backup.git
+    scm_url: https://github.com/rohitthakur2590/network.backup
 
 
 # Job Templates
