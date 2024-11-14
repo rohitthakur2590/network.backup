@@ -24,7 +24,7 @@ controller_projects:
 controller_templates:
   - name: Network Operations / Create Full Network Backup
     ask_inventory_on_launch: true
-    project: Network Operations Backup Experience Project
+    project: Network Operations / Backup & Restore Experience Project
     playbook: extensions/experiences/backup/playbooks/run_network_backup.yaml
     job_type: "run"
     organization: "Default"
