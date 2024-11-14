@@ -35,6 +35,6 @@ controller_templates:
     credentials: cml-instance
     survey_enabled: true
     # survey_spec: "{{ lookup('template', './extensions/experiences/backup/playbooks/template_surveys/backup.json') }}"
-    survey: "{{ lookup('template', 'extensions/experiences/backup/playbooks/template_surveys/backup.json') | regex_replace('\\n', '') }}"
+    survey: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.json') | regex_replace('\\n', '') }}"
 
     
