@@ -34,7 +34,7 @@ controller_templates:
       - run_network_backup 
     credentials: cml-instance
     survey_enabled: true
-    survey_spec: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.yaml') }}"
-    #survey: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.json') }}"
+    survey_spec: "{{ lookup('template', './template_surveys/backup.yaml') }}"
+    #survey: "{{ lookup('template', 'network.backup/extensions/experiences/backup/playbooks/template_surveys/backup.yaml') }}"
 
     
