@@ -29,14 +29,12 @@ spec:
     question_description: "GitHub username for the repository"
     variable: "GH_USER"
     required: true
-    default: "rohitthakur2590"
 
   - type: "text"
     question_name: "GitHub Email"
     question_description: "GitHub email associated with the repository"
     variable: "GH_EMAIL"
     required: true
-    default: "rohitthakur2590@outlook.com"
 
   - type: "text"
     question_name: "Backup File Name"
