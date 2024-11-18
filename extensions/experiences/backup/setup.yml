@@ -1,13 +1,13 @@
 ---
 # Labels
 #
-# controller_labels:
-#   - name: network.backup
-#     organization: "{{ organization | default('Default') }}"
-#   - name: backup_experience
-#     organization: "{{ organization | default('Default') }}"
-#   - name: run_network_backup
-#     organization: "{{ organization | default('Default') }}"
+controller_labels:
+  - name: network.backup
+    organization: "{{ organization | default('Default') }}"
+  - name: backup_experience
+    organization: "{{ organization | default('Default') }}"
+  - name: run_network_backup
+    organization: "{{ organization | default('Default') }}"
 
 # Projects
 #
@@ -19,7 +19,7 @@ controller_projects:
     scm_delete_on_update: 'no'
     scm_type: git
     scm_update_on_launch: 'no'
-    scm_credential: "rothakurgithubPAT"
+    # scm_credential: "rothakurgithubPAT"
     scm_url: https://github.com/rohitthakur2590/network.backup.git
 
 
@@ -32,10 +32,10 @@ controller_templates:
     playbook: extensions/experiences/backup/playbooks/run_network_backup.yaml
     job_type: "run"
     organization: "{{ organization | default('Default') }}"
-    # labels:
-    #   - network.backup
-    #   - backup_experience
-    #   - run_network_backup 
-    credentials: cml-instance
+    labels:
+      - network.backup
+      - backup_experience
+      - run_network_backup 
+    # credentials: cml-instance
     survey_enabled: true
     survey_spec: "{{ lookup('file', experience.path.replace('setup.yml', '') + 'template_surveys/backup.yaml') | from_yaml }}"
