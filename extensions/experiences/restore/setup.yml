@@ -20,7 +20,7 @@ controller_projects:
     scm_delete_on_update: 'no'
     scm_type: git
     scm_update_on_launch: 'no'
-    scm_credential: "rothakurgithubPAT"
+    # scm_credential: "rothakurgithubPAT"
     scm_url: https://github.com/rohitthakur2590/network.backup.git
 
 
@@ -37,6 +37,6 @@ controller_templates:
       - network.backup
       - restore_experience
       - run_network_restore 
-    credentials: cml-instance
+    # credentials: cml-instance
     survey_enabled: true
     survey_spec: "{{ lookup('file', experience.path.replace('setup.yml', '') + 'template_surveys/restore.yaml') | from_yaml }}"
