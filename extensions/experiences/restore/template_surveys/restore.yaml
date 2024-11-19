@@ -4,7 +4,7 @@ description: "Survey to configure network restore options"
 spec:
   - type: "text"
     question_name: "GitHub Repository URL"
-    question_description: "URL of the GitHub repository containing the backup"
+    question_description: "URL of the GitHub repository containing the backup file"
     variable: "GH_REPO"
     required: true
 
