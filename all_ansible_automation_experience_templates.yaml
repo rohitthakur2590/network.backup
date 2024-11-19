@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  description: A collection of all Ansible templates
+  name: software-template-for-automation-experience-restore
+spec:
+  targets:
+  - ./templates/automation_experience_backup_Backup_Configuration_Survey_template.yaml
+  - ./templates/automation_experience_restore_Network_Restore_Survey_template.yaml
