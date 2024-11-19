@@ -1,0 +1,77 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Backup_Configuration_Survey
+  title: Backup Configuration Survey
+  description: Survey to configure network backup options
+  tags:
+  - recommended
+  - ansible
+spec:
+  owner: ansible-authors
+  system: ansible
+  type: service
+  parameters:
+  - title: Provide information about the new component
+    required:
+    - backup_type
+    - GH_REPO
+    - GH_TOKEN
+    - GH_USER
+    - GH_EMAIL
+    properties:
+      backup_type:
+        title: Backup Type
+        description: Select the type of backup
+        type: string
+        default: full
+        enum: &id001
+        - full
+        - diff
+        enumNames: *id001
+      GH_REPO:
+        title: GitHub Repository URL
+        description: URL of the GitHub repository for storing the backup
+        type: string
+      GH_TOKEN:
+        title: GitHub Token
+        description: Personal access token for GitHub repository
+        type: string
+        ui:field: Secret
+      GH_USER:
+        title: GitHub Username
+        description: GitHub username for the repository
+        type: string
+      GH_EMAIL:
+        title: GitHub Email
+        description: GitHub email associated with the repository
+        type: string
+      backup_file_name:
+        title: Backup File Name
+        description: Name of the backup file (optional). If not provided, a timestamp
+          will be used.
+        type: string
+      inventory:
+        title: Inventory
+        type: string
+        description: the inventory we point to
+      organization:
+        title: organization
+        type: string
+        description: the organization we point to
+  steps:
+  - id: ansible portal
+    name: Invokes the backend scaffolder plugin for Ansible portal exp
+    action: ansible:rhaap:sync
+    input:
+      inventory: ${{ parameters.inventory }}
+      aeConfig:
+        backup_type: ${{ parameters.backup_type }}
+        GH_REPO: ${{ parameters.GH_REPO }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_USER: ${{ parameters.GH_USER }}
+        GH_EMAIL: ${{ parameters.GH_EMAIL }}
+        backup_file_name: ${{ parameters.backup_file_name }}
+      organization: ${{ parameters.organization }}
+      appType: automationExperience
+      appName: Backup_Configuration_Survey

@@ -1,0 +1,54 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Network_Restore_Survey
+  title: Network Restore Survey
+  description: Survey to configure network restore options
+  tags:
+  - recommended
+  - ansible
+spec:
+  owner: ansible-authors
+  system: ansible
+  type: service
+  parameters:
+  - title: Provide information about the new component
+    required:
+    - GH_REPO
+    - GH_TOKEN
+    - file_path
+    properties:
+      GH_REPO:
+        title: GitHub Repository URL
+        description: URL of the GitHub repository containing the backup file
+        type: string
+      GH_TOKEN:
+        title: GitHub Token
+        description: Personal access token for GitHub repository
+        type: string
+        ui:field: Secret
+      file_path:
+        title: File Path for Restore
+        description: Path to the specific backup file in the GitHub repository
+        type: string
+      inventory:
+        title: Inventory
+        type: string
+        description: the inventory we point to
+      organization:
+        title: organization
+        type: string
+        description: the organization we point to
+  steps:
+  - id: ansible portal
+    name: Invokes the backend scaffolder plugin for Ansible portal exp
+    action: ansible:rhaap:sync
+    input:
+      inventory: ${{ parameters.inventory }}
+      aeConfig:
+        GH_REPO: ${{ parameters.GH_REPO }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        file_path: ${{ parameters.file_path }}
+      organization: ${{ parameters.organization }}
+      appType: automationExperience
+      appName: Network_Restore_Survey
