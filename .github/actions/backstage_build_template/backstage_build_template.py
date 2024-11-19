@@ -72,7 +72,7 @@ def create_all_yaml(experience="ansible"):
 
 def read_json_surveys(base_path, dir_name):
     # Directory containing JSON files
-    directory_path = f"{base_path}/playbooks/template_surveys"
+    directory_path = f"{base_path}/template_surveys"
 
     # List to store data from all JSON files
     all_data = []
