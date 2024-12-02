@@ -5,7 +5,7 @@ import json
 
 def check_surveys():
     # Define the base directory
-    base_dir = "extensions/experiences"
+    base_dir = "extensions/patterns"
     survey_specs = {}
 
     # List immediate subdirectories under experiences
