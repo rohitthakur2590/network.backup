@@ -15,18 +15,19 @@
 - name: Check if file copy is possible
   ansible.builtin.include_tasks: "{{ health_check_path }}/{{ network_os }}.yaml"
 
-- name: Copy file from src to a network device
-  ansible.netcommon.net_put:
-    src: "{{ network_restore_backup_path }}"
-    protocol: scp
-    dest: "{{ dest_dir }}{{ file_name }}.txt"
+
+# - name: Copy file from src to a network device
+#   ansible.netcommon.net_put:
+#     src: "{{ network_restore_backup_path }}"
+#     protocol: sftp
+#     dest: "{{ dest_dir }}{{ file_name }}.txt"
 
 - name: Prepare appliance for a restore operation
   ansible.builtin.include_tasks: "{{ prepare_path }}/{{ network_os }}.yaml"
 
 - name: Restore operation for {{ network_os }}
   ansible.netcommon.cli_restore:
-    filename: "{{ file_name }}.txt"
+    filename: "{{ data_store.scm.origin.path }}"
     path: "{{ appliance_dir }}"
 
 - name: Delete backup from appliance
