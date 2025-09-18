@@ -19,7 +19,7 @@ argument_specs:
 
       data_store:
         description:
-          - Specifies the data store configuration, which can be either local or SCM. Includes details like path for local storage or URL, token, and user info for SCM.
+          - Specifies the data store configuration, which can be either local or SCM or SSH. Includes details like path for local storage or URL, token, and user info for SCM.
         type: dict
         required: true
         options:
@@ -56,7 +56,6 @@ argument_specs:
                       - URL of the SCM repository (e.g., GitHub) where backups are stored.
                   token:
                     type: str
-                    required: true
                     no_log: true
                     description:
                       - Authentication token for accessing the SCM repository.
@@ -84,3 +83,10 @@ argument_specs:
                     required: true
                     description:
                       - Filename for the backup stored in the SCM (e.g., <platform>_<date>.txt).
+                  ssh_key_file:
+                    type: str
+                    description: "Path to the SSH private key file for Git authentication."
+                  ssh_key_content:
+                    type: str
+                    description: "The content of the SSH private key for Git authentication (e.g., from Vault)."
+                    no_log: true

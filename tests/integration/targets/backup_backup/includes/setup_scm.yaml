@@ -1,0 +1,57 @@
+---
+- name: Create a temporary directory for a source repository
+  ansible.builtin.tempfile:
+    state: directory
+  register: source_repo_dir
+
+- name: Initialize a standard Git repository and create an initial commit
+  block:
+    - name: Initialize Git
+      ansible.builtin.command: "git init"
+      args:
+        chdir: "{{ source_repo_dir.path }}"
+      changed_when: false  # noqa command-instead-of-module
+
+    - name: Create README file
+      ansible.builtin.copy:
+        content: "Initial commit"
+        dest: "{{ source_repo_dir.path }}/README.md"
+        mode: '0644'
+
+    - name: Configure git user email
+      ansible.builtin.command: "git config user.email 'ansible@example.com'"
+      args:
+        chdir: "{{ source_repo_dir.path }}"
+      changed_when: false  # noqa command-instead-of-module
+
+    - name: Configure git user name
+      ansible.builtin.command: "git config user.name 'Ansible Test'"
+      args:
+        chdir: "{{ source_repo_dir.path }}"
+      changed_when: false  # noqa command-instead-of-module
+
+    - name: Add and commit the initial file
+      ansible.builtin.shell: "git add . && git commit -m 'Initial commit'"
+      args:
+        chdir: "{{ source_repo_dir.path }}"
+      changed_when: false  # noqa command-instead-of-module
+
+- name: Create a temporary directory for the bare 'remote' repository
+  ansible.builtin.tempfile:
+    state: directory
+  register: remote_repo_dir
+
+- name: Create a bare clone to act as the 'remote'
+  ansible.builtin.command: "git clone --bare {{ source_repo_dir.path }} ."
+  args:
+    chdir: "{{ remote_repo_dir.path }}"
+  changed_when: false  # noqa command-instead-of-module
+
+- name: Generate a temporary, passwordless SSH key pair for this test
+  ansible.builtin.tempfile:
+    state: directory
+  register: ssh_key_dir
+
+- name: Generate dummy SSH key
+  ansible.builtin.command: "ssh-keygen -t ed25519 -f {{ ssh_key_dir.path }}/id_ed25519 -N ''"
+  changed_when: false

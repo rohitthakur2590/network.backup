@@ -3,6 +3,51 @@
   ansible.builtin.debug:
     msg: "START network.backup persist operation integration tests on connection={{ ansible_connection }}"
 
+- name: Test SCM backup via SSH, gather and persist
+  block:
+    - name: Create temporary resources for SCM test
+      ansible.builtin.include_tasks: includes/setup_scm.yaml
+
+    - name: Set data store for SCM SSH backup
+      ansible.builtin.set_fact:
+        test_data_store:
+          scm:
+            origin:
+              url: "{{ remote_repo_dir.path }}"
+              ssh_key_file: "{{ ssh_key_dir.path }}/id_ed25519"
+              path: "backups"
+              filename: "{{ inventory_hostname }}.cfg"
+              user:
+                name: "Ansible Test"
+                email: "ansible@example.com"
+
+    - name: Run network.backup for SCM SSH persist (First Run)
+      ansible.builtin.include_role:
+        name: network.backup.backup
+      vars:
+        data_store: "{{ test_data_store }}"
+
+    - name: Assert file was pushed for SCM backup
+      ansible.builtin.include_tasks: includes/assertions_scm.yaml
+
+    - name: Re-run network.backup to test idempotency (Second Run)
+
+      ansible.builtin.include_role:
+        name: network.backup.backup
+      vars:
+        data_store: "{{ test_data_store }}"
+      register: backup_result_scm
+
+    - name: Assert that the second run made no changes
+      ansible.builtin.assert:
+        that:
+          - not backup_result_scm.changed
+        success_msg: "IDEMPOTENCY CHECK PASSED: Second run reported no changes."
+
+  always:
+    - name: Clean up SCM test resources
+      ansible.builtin.include_tasks: _cleanup_scm.yaml
+
 - name: Cleanup, gather and persist
   block:
     - name: Reset configuration
@@ -11,7 +56,9 @@
     - name: Set data data_store
       ansible.builtin.set_fact:
         test_data_store:
-          local: "~/test_backup"
+          local:
+            path: "{{ lookup('env', 'HOME') }}/test_backup"
+            filename: "abc.txt"
 
     - name: Run network.backup validated content with persist operation
       ansible.builtin.include_role:

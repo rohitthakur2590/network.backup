@@ -24,9 +24,11 @@ This role supports restoring from both local and remote (e.g., Git-based) data s
 | `data_store.scm.origin.user.name` | Git user name used for SCM operations | `str` | No | N/A |
 | `data_store.scm.origin.user.email` | Git user email used for SCM operations | `str` | No | N/A |
 | `data_store.scm.origin.url` | URL of the remote Git repository | `str` | Yes (if using SCM) | N/A |
-| `data_store.scm.origin.token` | Authentication token for accessing Git | `str` | Yes (if using SCM) | N/A |
+| `data_store.scm.origin.token` | Authentication token for accessing Git | `str` | Yes (if using SCM HTTPS) | N/A |
 | `data_store.scm.origin.filename` | Filename to restore from the Git repo | `str` | Yes (if using SCM) | N/A |
 | `data_store.scm.origin.path` | Path in the repo where the file is located | `str` | No | N?A |
+| `data_store.scm.origin.ssh_key_file` | Path to the SSH private key file for Git authentication | `str` | Yes (if using SCM SSH) | N/A |
+| `data_store.scm.origin.ssh_key_content` | The content of the SSH private key | `str` | Yes (if using SCM SSH) | N/A |
 
 > Either `data_store.local` or `data_store.scm` must be provided.
 
@@ -51,7 +53,7 @@ This role supports restoring from both local and remote (e.g., Git-based) data s
             filename: "{{ ansible_date_time.date }}_{{ inventory_hostname }}.txt"
 ```
 
-### Restore Network Configuration from SCM
+### Restore Network Configuration from SCM HTTPS
 
 ```yaml
 - name: Restore Network Configuration from GitHub
@@ -70,6 +72,56 @@ This role supports restoring from both local and remote (e.g., Git-based) data s
                 email: "your_email@example.com"
               url: "https://github.com/youruser/your-backup-repo"
               token: "{{ gh_token }}"
+              filename: "{{ ansible_date_time.date }}_{{ inventory_hostname }}.txt"
+              path: "backups/{{ ansible_date_time.date }}/{{ inventory_hostname }}"
+```
+
+### Restore Network Configuration from SCM SSH key content
+
+```yaml
+- name: Restore Network Configuration from GitHub
+  hosts: network
+  gather_facts: false
+  tasks:
+    - name: Run restore network config
+      ansible.builtin.include_role:
+        name: network.backup.restore
+      vars:
+        github_user: "ansible"
+        github_repo: "ansible_ssh"
+        git_ssh_private_key: |
+          -----BEGIN OPENSSH PRIVATE KEY-----
+          <enter your key>
+          -----END OPENSSH PRIVATE KEY-----
+        data_store:
+          scm:
+            origin:
+              url: "git@github.com:{{ github_user }}/{{ github_repo }}.git"
+              ssh_key_content: "{{ git_ssh_private_key }}"
+              filename: "{{ ansible_date_time.date }}_{{ inventory_hostname }}.txt"
+              path: "backups/{{ ansible_date_time.date }}/{{ inventory_hostname }}"
+```
+
+
+### Restore Network Configuration from SCM SSH key file
+
+```yaml
+- name: Restore Network Configuration from GitHub
+  hosts: network
+  gather_facts: false
+  tasks:
+    - name: Run restore network config
+      ansible.builtin.include_role:
+        name: network.backup.restore
+      vars:
+        github_user: "ansible"
+        github_repo: "ansible_ssh"
+        git_ssh_private_key_file: "/home/ansible/.ssh/github_private_key"
+        data_store:
+          scm:
+            origin:
+              url: "git@github.com:{{ github_user }}/{{ github_repo }}.git"
+              ssh_key_file: "{{ git_ssh_private_key_file }}"
               filename: "{{ ansible_date_time.date }}_{{ inventory_hostname }}.txt"
               path: "backups/{{ ansible_date_time.date }}/{{ inventory_hostname }}"
 ```

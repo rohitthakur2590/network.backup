@@ -18,13 +18,15 @@
       ansible.builtin.set_fact:
         network_backup_repository: "{{ resource_manager_result }}"
 
-- name: Perform retrieve with default settings
+- name: Perform retrieve with default settings or SSH key
   when: data_store.scm.origin.token is undefined
   block:
-    - name: Retrieve host vars with default access
+    - name: Retrieve host vars with default access or SSH key
       ansible.scm.git_retrieve:
         origin:
           url: "{{ data_store['scm']['origin']['url'] }}"
+          ssh_key_file: "{{ data_store['scm']['origin'].ssh_key_file | default(omit) }}"
+          ssh_key_content: "{{ data_store['scm']['origin'].ssh_key_content | default(omit) }}"
         parent_directory: "{{ data_store.scm.parent_directory | default(default_path) }}"
       register: resource_manager_result
 

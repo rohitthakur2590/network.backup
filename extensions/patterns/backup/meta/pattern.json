@@ -1,0 +1,28 @@
+{
+  "title": "Backup Pattern",
+  "name": "backup",
+  "schema_version": "1.0.0",
+  "description": "Backup pattern for my collection",
+  "short_description": "Backup pattern for the network.backup collection",
+  "authors": ["nikhilbhasin7@gmail.com"],
+  "license": "MIT",
+  "aap_resources": {
+    "controller_project": {
+      "name": "Backup Project",
+      "description": "Project for network.backup.backup operations",
+      "scm_type": "git",
+      "scm_url": "https://github.com/redhat-cop/network.backup.git"
+    },
+    "controller_job_templates": [
+      {
+        "name": "Backup Job",
+        "description": "Run backup playbook",
+        "inventory": "Default",
+        "project": "Backup Project",
+        "playbook": "run_network_backup.yaml",
+        "job_type": "run",
+        "verbosity": 1
+      }
+    ]
+  }
+}

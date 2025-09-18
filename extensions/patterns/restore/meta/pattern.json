@@ -1,0 +1,28 @@
+{
+  "title": "Restore Pattern",
+  "name": "restore",
+  "schema_version": "1.0.0",
+  "description": "Restore pattern for my collection",
+  "short_description": "Restore pattern for the network.backup collection",
+  "authors": ["nikhilbhasin7@gmail.com"],
+  "license": "MIT",
+  "aap_resources": {
+    "controller_project": {
+      "name": "Restore Project",
+      "description": "Project for network.backup.restore operations",
+      "scm_type": "git",
+      "scm_url": "https://github.com/redhat-cop/network.backup.git"
+    },
+    "controller_job_templates": [
+      {
+        "name": "Restore Job",
+        "description": "Run restore playbook",
+        "inventory": "Default",
+        "project": "Backup Project",
+        "playbook": "run_network_restore.yaml",
+        "job_type": "run",
+        "verbosity": 1
+      }
+    ]
+  }
+}

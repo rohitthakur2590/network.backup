@@ -1,0 +1,24 @@
+---
+- name: Clean up the source repository directory
+  ansible.builtin.file:
+    path: "{{ source_repo_dir.path }}"
+    state: absent
+  when: source_repo_dir.path is defined
+
+- name: Clean up the remote repository directory
+  ansible.builtin.file:
+    path: "{{ remote_repo_dir.path }}"
+    state: absent
+  when: remote_repo_dir.path is defined
+
+- name: Clean up the SSH key directory
+  ansible.builtin.file:
+    path: "{{ ssh_key_dir.path }}"
+    state: absent
+  when: ssh_key_dir.path is defined
+
+- name: Clean up the verification clone directory
+  ansible.builtin.file:
+    path: "{{ verify_dir.path }}"
+    state: absent
+  when: verify_dir.path is defined

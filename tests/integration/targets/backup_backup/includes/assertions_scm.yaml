@@ -1,0 +1,27 @@
+---
+- name: Get the name of the most recently pushed branch
+  ansible.builtin.command: "git --git-dir {{ remote_repo_dir.path }} for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' --count=1"
+  register: latest_branch
+  changed_when: false  # noqa command-instead-of-module
+
+- name: Create a temporary directory to verify the clone
+  ansible.builtin.tempfile:
+    state: directory
+  register: verify_dir
+
+- name: Clone the 'remote' repo and checkout the new branch
+  ansible.builtin.git:
+    repo: "{{ remote_repo_dir.path }}"
+    dest: "{{ verify_dir.path }}"
+    version: "{{ latest_branch.stdout }}"
+
+- name: Check if the pushed backup file exists in the verification clone
+  ansible.builtin.stat:
+    path: "{{ verify_dir.path }}/{{ test_data_store.scm.origin.path }}/{{ test_data_store.scm.origin.filename }}"
+  register: file_check
+
+- name: Assert that the backup file was successfully pushed
+  ansible.builtin.assert:
+    that:
+      - file_check.stat.exists
+    success_msg: "FUNCTIONAL CHECK PASSED: Backup file was found in the remote repository."

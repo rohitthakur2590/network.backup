@@ -43,3 +43,4 @@
       {% for i in out_diff.results %}
         {{ i.cmd | join(' ') }}: |
           {{ i.stdout | indent(2) }}
+      {% endfor %}
