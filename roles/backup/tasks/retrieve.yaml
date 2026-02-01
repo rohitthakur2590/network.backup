@@ -76,5 +76,7 @@
 
 - name: Update Inventory Path
   ansible.builtin.set_fact:
+    # Use the actual repository path from git_retrieve or existing repo
+    # This path is used by backup.yaml to set network_backup_path_root
     network_backup_path: "{{ network_backup_repository['path'] }}"
   tags: always
