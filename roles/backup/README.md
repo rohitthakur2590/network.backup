@@ -18,7 +18,6 @@ This role supports full and differential backups, storing them locally or in a r
 - Works with both local and Git-based data stores.
 - Helps reduce storage and SCM noise by saving only when diff exists.
 - **Ignores timestamps and metadata** - only detects actual configuration changes.
-- See [Differential Backup Documentation](Differential_Backup_Documentation.md) for detailed explanation of how it works.
 
 ---
 
@@ -38,9 +37,6 @@ This role supports full and differential backups, storing them locally or in a r
 | `data_store.scm.origin.ssh_key_content` | The content of the SSH private key | `str` | Yes (if using SCM SSH) | N/A |
 | `type` | Type of backup to perform. Options: `"full"`, `"incremental"`, or `"diff"` | `str` | No | `"full"` |
 
-> Note: Either `data_store.local` or `data_store.scm` must be provided.
->
-> **Differential Backup (`type: "diff"`)**: When enabled, the role compares the current backup with the previous backup after normalizing (removing timestamps/metadata). Only publishes if actual configuration changes are detected. See [Differential Backup Documentation](Differential_Backup_Documentation.md) for details.
 
 ---
 
